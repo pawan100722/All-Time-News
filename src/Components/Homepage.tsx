@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getLatestNews } from "../Services/api.services";
-import { NewsDataQueryParamDTO } from "../DTOS/NewsDTO";
+import { NewsDataQueryParamDTO, NewsDTO } from "../DTOS/NewsDTO";
+import defaultNewsImage from '../Images/news_card,jpg.jpg';
+import '../Styles/Homepage.css'
 
 export const Homepage = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,7 +26,6 @@ export const Homepage = () => {
       if(nextPageToken){
       params["page"] = nextPageToken;}
       params["size"] = 10;
-      console.log('params are:::::', params);
       
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const result: any = await getLatestNews(params);
@@ -41,23 +42,22 @@ export const Homepage = () => {
   return (
     <div className="homepage-container">
       <div className="news-cards-container">
-        {latestNewsData.map((news: any) => {
+        {latestNewsData.map((news: NewsDTO) => {
           return (
-            <div key={news?.id}>
+            <a href={news?.link} key={news?.id} className="each-news-card-container" target="_blank">
+              <img
+                key={`${news?.id}-${news?.image_url}`}
+                src={news?.image_url || defaultNewsImage}
+                alt={`News Image-${news.id}`}
+                className="news-card-image"
+              />
               <h1
                 key={`${news?.id}-${news?.title}`}
                 className="news-card-title"
               >
                 {news?.title}
               </h1>
-              <img
-                key={`${news?.id}-${news?.image_url}`}
-                src={news?.image_url}
-                alt={`News Image-${news.id}`}
-                className="news-card-image"
-                width= '500px'
-              />
-            </div>
+            </a>
           );
         })}
       </div>
