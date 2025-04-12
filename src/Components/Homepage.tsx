@@ -3,11 +3,13 @@ import { getLatestNews } from "../Services/api.services";
 import { NewsDataQueryParamDTO, NewsDTO } from "../DTOS/NewsDTO";
 import defaultNewsImage from '../Images/news_card,jpg.jpg';
 import '../Styles/Homepage.css'
+import { NewsSlider } from "./NewsSlider";
 
 export const Homepage = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [latestNewsData, setLatNewsData] = useState<any[]>([]);
   const [nextPageToken, setNextPageToken] = useState<string>("");
+  const [sliderData, setSliderData] = useState<any[]>([])
 
   /**
    * sets the state variable with news data when component mounts
@@ -29,8 +31,9 @@ export const Homepage = () => {
       
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const result: any = await getLatestNews(params);
-
+      const sliderData = result?.results?.splice(0,5)
       setLatNewsData(result?.results);
+      setSliderData(sliderData)
       if (result?.nextPage) {
         setNextPageToken(result?.nextPage);
       }
@@ -41,6 +44,7 @@ export const Homepage = () => {
 
   return (
     <div className="homepage-container">
+        <NewsSlider newsDataProp={sliderData}/>
       <div className="news-cards-container">
         {latestNewsData.map((news: NewsDTO) => {
           return (

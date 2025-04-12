@@ -1,0 +1,25 @@
+.news-slider-container{
+  display:flex;
+  width: 90%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.news-slider-card-container{
+   min-width: 100%;
+   height: 500px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-decoration: none;
+   transition: transform 1s ease;
+}
+
+.news-slider-card-image{
+  width: 95%;
+  height: 420px;
+}
+
+.news-slider-card-title{
+  text-align: center;
+}
