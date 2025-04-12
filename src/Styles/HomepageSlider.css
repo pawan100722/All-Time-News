@@ -3,11 +3,12 @@
   width: 90%;
   margin: auto;
   overflow: hidden;
+  justify-content: center;
 }
 
 .news-slider-card-container{
    min-width: 100%;
-   height: 500px;
+   height: 700px;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -16,10 +17,29 @@
 }
 
 .news-slider-card-image{
-  width: 95%;
-  height: 420px;
+  width: 75%;
+  height: 600px;
 }
 
 .news-slider-card-title{
   text-align: center;
+  color: black;
+}
+
+.slider-icon-container{
+  position:absolute;
+  width: 80%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+}
+
+.slider-icon{
+  display: flex;
+  width: 4rem;
+  opacity: 0.2;
+  color: black;
+  cursor: pointer;
 }
