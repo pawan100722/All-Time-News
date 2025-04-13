@@ -4,51 +4,99 @@ import { NewsDataQueryParamDTO, NewsDTO } from "../DTOS/NewsDTO";
 import defaultNewsImage from '../Images/news_card,jpg.jpg';
 import '../Styles/Homepage.css'
 import { NewsSlider } from "./NewsSlider";
+import { increaseAPICallCount } from "./MainComponent";
+import {toast} from 'react-toastify';
 
 export const Homepage = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [latestNewsData, setLatNewsData] = useState<any[]>([]);
+  const [cardsData, setCardsData] = useState<any[]>([]);
   const [nextPageToken, setNextPageToken] = useState<string>("");
-  const [sliderData, setSliderData] = useState<any[]>([])
+  const [sliderData, setSliderData] = useState<NewsDTO[]>([]);
 
   /**
-   * sets the state variable with news data when component mounts
+   * sets data for slider data when component mounts
    */
   useEffect(() => {
-    setNewsData();
+    fetchSliderData();
   }, []);
 
   /**
-   * Fetches the news data from api request
-   * sets the data in state variable
+   * Sets the card data when data is fetched fro slider 
+   * and next page token is received
    */
-  const setNewsData = async () => {
+  useEffect(() => {
+    fetchCardsData();
+  }, [nextPageToken]);
+
+  /**
+   * Fetches the news data from api request
+   * sets the slider data in state variable
+   */
+  const fetchSliderData = async () => {
+    try {
+      const result = await fetchData();
+      setSliderData(result?.results);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      const message =
+        err?.response?.message ||
+        err?.message ||
+        "Error Occurred in API CAll for slider data";
+      toast.error(message);
+    }
+  };
+
+  /**
+   * Fetches the news data from api request
+   * sets the cards data in state variable
+   */
+  const fetchCardsData = async () => {
+    try {
+      const result = await fetchData();
+      setCardsData(result?.results);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      const message =
+        err?.response?.message ||
+        err?.message ||
+        "Error Occurred in Cards DataAPI CAll";
+      toast.error(message);
+    }
+  };
+
+  const fetchData = async () => {
     try {
       const params: NewsDataQueryParamDTO = { language: "en" };
-      if(nextPageToken){
-      params["page"] = nextPageToken;}
+      if (nextPageToken) {
+        params["page"] = nextPageToken;
+      }
       params["size"] = 10;
-      
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const result: any = await getLatestNews(params);
-      const sliderData = result?.results?.splice(0,5)
-      setLatNewsData(result?.results);
-      setSliderData(sliderData)
+      increaseAPICallCount();
       if (result?.nextPage) {
         setNextPageToken(result?.nextPage);
       }
+      return result;
     } catch (err) {
-      console.log("error in Homepage.tsx fetchNewsData():", err);
+      console.log("Error while fetching data in homepage.tsx");
+      throw err;
     }
   };
 
   return (
     <div className="homepage-container">
-        <NewsSlider newsDataProp={sliderData}/>
+      <NewsSlider newsDataProp={sliderData} />
       <div className="news-cards-container">
-        {latestNewsData.map((news: NewsDTO) => {
+        {cardsData.map((news: NewsDTO) => {
           return (
-            <a href={news?.link} key={news?.id} className="each-news-card-container" target="_blank">
+            <a
+              href={news?.link}
+              key={news?.id}
+              className="each-news-card-container"
+              target="_blank"
+            >
               <img
                 key={`${news?.id}-${news?.image_url}`}
                 src={news?.image_url || defaultNewsImage}

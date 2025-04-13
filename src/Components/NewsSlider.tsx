@@ -7,8 +7,9 @@ import { RightArrow } from "../Icons/RightArrow";
 
 export const NewsSlider = ({ newsDataProp }: NewsDataPropDTO) => {
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
+  const [sliderButtonClicked, setSliderButtonClicked] = useState<boolean>(false)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [sliderIntervalId, setSliderIntervalId] = useState<any>('')
+  const [sliderIntervalId, setSliderIntervalId] = useState<any>('');
 
   const next = () => {
     if(currentIndex===0 || currentIndex< newsDataProp.length){
@@ -23,20 +24,38 @@ export const NewsSlider = ({ newsDataProp }: NewsDataPropDTO) => {
    * It sets the slider auto move
    */
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    let intervalId = NaN;
+    if(!sliderButtonClicked){intervalId =setInterval(() => {
       next();
     }, 1500);
-    setSliderIntervalId(intervalId);
+    setSliderIntervalId(intervalId);}
     return () => clearInterval(intervalId);
   }, [currentIndex]);
 
 
 
+  /**
+   * Decreases the current index by 1 and checks the minimum range i.e 0
+   * To make the slide moves backward
+   */
   const handlePrev=()=>{
     clearInterval(sliderIntervalId);
+    setSliderButtonClicked(true);
+    if(currentIndex===0){
+      setCurrentIndex(newsDataProp.length);
+    } else setCurrentIndex(prev=> prev-1);
   }
+
+  /**
+   * Increases the current index by one and checks if the index reaches maximum
+   * To move the slide forward
+   */
   const handleNext=()=>{
     clearInterval(sliderIntervalId);
+    setSliderButtonClicked(true);
+    if (currentIndex === newsDataProp.length) {
+      setCurrentIndex(0);
+    } else setCurrentIndex((prev) => prev + 1);
   }
 
   return (
@@ -64,21 +83,17 @@ export const NewsSlider = ({ newsDataProp }: NewsDataPropDTO) => {
                 {news?.title}
               </h1>
             </a>
-            <div className="slider-icon-container">
-              <div className=" slider-icon"
-              onClick={handlePrev}
-              >
-                <LeftArrow/>
-              </div>
-              <div className="slider-icon"
-              onClick={handleNext}
-              >
-                <RightArrow/>
-              </div>
-            </div>
           </>
         );
       })}
+      <div className="slider-icon-container">
+        <div className=" slider-icon" onClick={handlePrev}>
+          <LeftArrow />
+        </div>
+        <div className="slider-icon" onClick={handleNext}>
+          <RightArrow />
+        </div>
+      </div>
     </div>
   );
 };
