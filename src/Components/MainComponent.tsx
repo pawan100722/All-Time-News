@@ -11,10 +11,10 @@ export const MainComponent=()=>{
 
 export const increaseAPICallCount=()=>{
   const key ='apiCount';
-  const count =localStorage.getItem(key);
+  const count =sessionStorage.getItem(key);
   if(!count){
-    localStorage.setItem(key,'1');
+    sessionStorage.setItem(key,'1');
   } else{
-    localStorage.setItem(key,`${Number(count)+1}`);
+    sessionStorage.setItem(key,`${Number(count)+1}`);
   }
 }

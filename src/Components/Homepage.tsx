@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getLatestNews } from "../Services/api.services";
 import { NewsDataQueryParamDTO, NewsDTO } from "../DTOS/NewsDTO";
 import defaultNewsImage from '../Images/news_card,jpg.jpg';
-import '../Styles/Homepage.css'
+import '../Styles/Homepage.css';
 import { NewsSlider } from "./NewsSlider";
 import { increaseAPICallCount } from "./MainComponent";
 import {toast} from 'react-toastify';
