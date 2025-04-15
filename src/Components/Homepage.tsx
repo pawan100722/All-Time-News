@@ -18,15 +18,9 @@ export const Homepage = () => {
    */
   useEffect(() => {
     fetchSliderData();
+    //Adding this delay because this api call is expected, once the data is fetched and next page token is received
+    setTimeout(fetchCardsData,1000)
   }, []);
-
-  /**
-   * Sets the card data when data is fetched fro slider 
-   * and next page token is received
-   */
-  useEffect(() => {
-    fetchCardsData();
-  }, [nextPageToken]);
 
   /**
    * Fetches the news data from api request
