@@ -1,89 +1,76 @@
+import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { getLatestNews } from "../Services/api.services";
-import { NewsDataQueryParamDTO, NewsDTO } from "../DTOS/NewsDTO";
-import defaultNewsImage from '../Images/news_card,jpg.jpg';
 import '../Styles/Homepage.css';
 import { NewsSlider } from "./NewsSlider";
+import {LANGUAGES} from '../Services/CONSTANTS.ts';
 import { increaseAPICallCount } from "./MainComponent";
-import {toast} from 'react-toastify';
+import { getLatestNews } from "../Services/api.services";
+import defaultNewsImage from '../Images/news_card,jpg.jpg';
+import { NewsDataQueryParamDTO, NewsDTO, NewsResponseDTO } from "../DTOS/NewsDTO";
 
 export const Homepage = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [cardsData, setCardsData] = useState<any[]>([]);
+  const [newsData, setNewsData] = useState<NewsDTO[]>([])
   const [nextPageToken, setNextPageToken] = useState<string>("");
-  const [sliderData, setSliderData] = useState<NewsDTO[]>([]);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
   /**
    * sets data for slider data when component mounts
    */
   useEffect(() => {
-    fetchSliderData();
-    //Adding this delay because this api call is expected, once the data is fetched and next page token is received
-    setTimeout(fetchCardsData,1000)
+    fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /**
-   * Fetches the news data from api request
-   * sets the slider data in state variable
-   */
-  const fetchSliderData = async () => {
-    try {
-      const result = await fetchData();
-      setSliderData(result?.results);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      const message =
-        err?.response?.message ||
-        err?.message ||
-        "Error Occurred in API CAll for slider data";
-      toast.error(message);
-    }
-  };
+
 
   /**
-   * Fetches the news data from api request
-   * sets the cards data in state variable
+   * fetches the data when language is changed
    */
-  const fetchCardsData = async () => {
-    try {
-      const result = await fetchData();
-      setCardsData(result?.results);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      const message =
-        err?.response?.message ||
-        err?.message ||
-        "Error Occurred in Cards DataAPI CAll";
-      toast.error(message);
-    }
-  };
+  useEffect(()=>{
+    fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[selectedLanguage])
+
 
   const fetchData = async () => {
     try {
-      const params: NewsDataQueryParamDTO = { language: "en" };
+      const params: NewsDataQueryParamDTO = { language: selectedLanguage };
+      
       if (nextPageToken) {
         params["page"] = nextPageToken;
       }
       params["size"] = 10;
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const result: any = await getLatestNews(params);
+      const result: NewsResponseDTO = await getLatestNews(params);
       increaseAPICallCount();
+      setNewsData(result?.results);
       if (result?.nextPage) {
         setNextPageToken(result?.nextPage);
       }
-      return result;
-    } catch (err) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
       console.log("Error while fetching data in homepage.tsx");
+      toast.error(err?.message || err?.response?.message || 'Error while fetching data in homepage')
       throw err;
     }
   };
 
+
+  const handleLanguageChange=(eventParam: React.ChangeEvent<HTMLSelectElement>)=>{
+     setSelectedLanguage(eventParam?.target?.value);
+  }
+
   return (
     <div className="homepage-container">
-      <NewsSlider newsDataProp={sliderData} />
+      <div className="languages-container">
+        <label htmlFor="languages" className="language-label">Select Language:</label>
+        <select name="languages" className="language-select" onChange={handleLanguageChange}>{
+          LANGUAGES.map((lang,index)=><option className="language-option" key={`${index}-${lang?.code}-${lang.code}`} selected={selectedLanguage===lang?.code} value={lang.code}>{lang?.name}</option>)
+          }</select>
+      </div>
+      <NewsSlider newsDataProp={newsData} />
       <div className="news-cards-container">
-        {cardsData.map((news: NewsDTO) => {
+        {newsData?.map((news: NewsDTO) => {
           return (
             <a
               href={news?.link}

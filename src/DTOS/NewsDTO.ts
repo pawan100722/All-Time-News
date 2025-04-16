@@ -10,3 +10,10 @@ export interface NewsDTO{
   image_url: string;
   link:string;
 }
+
+export interface NewsResponseDTO {
+  nextPage: string;
+  results: NewsDTO[];
+  status: string;
+  totalResults:number;
+}

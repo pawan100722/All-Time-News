@@ -33,3 +33,23 @@
   text-align: center;
   font-size: 1.3rem;
 }
+
+.language-label{
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-style: italic;
+  padding: 5px;
+}
+
+.languages-container{
+  margin: 10px;
+}
+
+.language-select{
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #ece9e9;
+  color:#4b4b89;
+}
+
+.language-option{}
