@@ -1,0 +1,19 @@
+.search-news-container{
+  width: 600px;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  gap:5px;
+}
+
+.search-input{
+  width: 100%;
+  font-size: 1rem;
+  border:none;
+  outline: none;
+}
+
+.search-icon{
+  width: 2rem;
+}

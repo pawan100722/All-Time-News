@@ -34,15 +34,18 @@
   font-size: 1.3rem;
 }
 
+.homepage-input-container{
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin: 10px;
+}
+
 .language-label{
   font-size: 1.2rem;
   font-weight: bold;
   font-style: italic;
   padding: 5px;
-}
-
-.languages-container{
-  margin: 10px;
 }
 
 .language-select{
@@ -52,4 +55,3 @@
   color:#4b4b89;
 }
 
-.language-option{}
