@@ -94,3 +94,30 @@ export const LANGUAGES = [
   { name: "Welsh", code: "cy" },
   { name: "Zulu", code: "zu" },
 ];
+
+export const COUNTRIES = [
+  { name: "Bangladesh", code: "bd" },
+  { name: "Afghanistan", code: "af" },
+  { name: "Australia", code: "au" },
+  { name: "Canada", code: "ca" },
+  { name: "China", code: "cn" },
+  { name: "Egypt", code: "eg" },
+  { name: "France", code: "fr" },
+  { name: "India", code: "in" },
+  { name: "Japan", code: "jp" },
+  { name: "Malaysia", code: "my" },
+  { name: "Mexico", code: "mx" },
+  { name: "Nepal", code: "np" },
+  { name: "New Zealand", code: "nz" },
+  { name: "Pakistan", code: "pk" },
+  { name: "Russia", code: "ru" },
+  { name: "Singapore", code: "sg" },
+  { name: "South Africa", code: "za" },
+  { name: "Sri Lanka", code: "lk" },
+  { name: "Taiwan", code: "tw" },
+  { name: "United Arab Emirates", code: "ae" },
+  { name: "United Kingdom", code: "gb" },
+  { name: "United States of America", code: "us" },
+  { name: "World", code: "wo" }
+];
+

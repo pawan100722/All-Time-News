@@ -8,12 +8,14 @@ import { getLatestNews } from "../Services/api.services";
 import defaultNewsImage from '../Images/news_card,jpg.jpg';
 import { NewsDataQueryParamDTO, NewsDTO, NewsResponseDTO } from "../DTOS/NewsDTO";
 import { SearchNews } from "./SearchNews.tsx";
+import { Countries } from "./Countries.tsx";
 
 export const Homepage = () => {
   const [newsData, setNewsData] = useState<NewsDTO[]>([])
   const [nextPageToken, setNextPageToken] = useState<string>("");
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  const [country, setCountry]= useState<string>('in');
 
   /**
    * sets data for slider data when component mounts
@@ -26,12 +28,12 @@ export const Homepage = () => {
 
 
   /**
-   * fetches the data when language, search keyword is changed
+   * fetches the data when language, search keyword, country is changed
    */
   useEffect(()=>{
     fetchData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[selectedLanguage,searchKeyword])
+  },[selectedLanguage,searchKeyword, country])
 
 
   const fetchData = async () => {
@@ -39,6 +41,7 @@ export const Homepage = () => {
       const params: NewsDataQueryParamDTO = {
         language: selectedLanguage,
         removeduplicate : 1,
+        country,
       };
       
       if (nextPageToken) {
@@ -71,12 +74,12 @@ export const Homepage = () => {
   return (
     <div className="homepage-container">
       <div className="homepage-input-container">
-        <label htmlFor="languages" className="language-label">Select Language:</label>
         <select name="languages" className="language-select" onChange={handleLanguageChange}>{
           LANGUAGES.map((lang,index)=><option className="language-option" key={`${index}-${lang?.code}-${lang.code}`} selected={selectedLanguage===lang?.code} value={lang.code}>{lang?.name}</option>)
           }</select>
 
       <SearchNews setSearchKeywordProp={setSearchKeyword}/>
+      <Countries setCountryProp={setCountry}/>
       </div>
       <NewsSlider newsDataProp={newsData} />
       <div className="news-cards-container">
