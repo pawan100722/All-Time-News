@@ -35,24 +35,19 @@
 }
 
 .homepage-input-container{
+  margin: 5px;
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  /* justify-content: center; */
+  /* align-items: center; */
   flex-wrap: wrap;
-  padding:10px;
+  height: 40px;
 }
 
-.language-label{
-  font-size: 1.2rem;
-  font-weight: bold;
-  font-style: italic;
-  padding: 5px;
-}
 
 .language-select{
-  padding: 5px;
   border-radius: 5px;
   background-color: #ece9e9;
   color:#4b4b89;
+  padding: 10px;
 }
 

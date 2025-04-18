@@ -3,6 +3,7 @@ export interface SearchNewsPropDTO {
 }
 
 export interface CountriesPropDTO {
+  countryProp: string;
   setCountryProp: (val:string)=>void;
 }
 

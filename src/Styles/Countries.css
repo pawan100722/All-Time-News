@@ -3,10 +3,11 @@
   flex-direction: column;
   align-items: center;
   width: 10%;
+  height: 40px;
 }
 
 .select-country{
-  padding: 10px;
+  padding: 11px;
   background-color:white;
   border-radius: 10px;
   outline: none;
@@ -16,7 +17,7 @@
 
 .country-list-container{
   top: 45px;
-  background-color: rgb(223, 207, 183,0.8);
+  background-color: rgb(223, 207, 183);
   position: absolute;
   z-index: 10;
   min-width: 300px;
@@ -27,7 +28,7 @@
   border: 1px solid black;
   border-radius: 10px;
   transform: scale(0);
-  transition: transform 1s ease;
+  transition: transform 0.5s ease;
   transform-origin: top center;
 }
 

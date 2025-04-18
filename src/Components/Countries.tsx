@@ -4,24 +4,34 @@ import '../Styles/Countries.css';
 import { CountriesPropDTO } from "../DTOS/PropsDTO";
 import { CountryDTO } from "../DTOS/OtherDTO";
 
-export const Countries=({setCountryProp}:CountriesPropDTO)=>{
-  const [isModuleOpen, setIsModuleOpen]=useState<boolean>(false);
- 
-  const handleClick=()=>{
-    setIsModuleOpen(prev=> !prev);
-  }
+export const Countries = ({ countryProp,setCountryProp }: CountriesPropDTO) => {
+  const [isModuleOpen, setIsModuleOpen] = useState<boolean>(false);
 
-  const handleCountryClick=(countryParam:CountryDTO)=>{
-    setCountryProp(countryParam?.code);
-    setIsModuleOpen(prev=> !prev);
+  const handleClick = () => {
+    setIsModuleOpen((prev) => !prev);
   };
 
-  return <div className="countries-container">
-    <button className="select-country" onClick={handleClick}>Select Country</button>
-    <div className={`country-list-container ${isModuleOpen?'scale':''}`}>
-      {
-        COUNTRIES.map((country:CountryDTO, indx:number)=> <div onClick={()=>handleCountryClick(country)} className="country-list-item" key={`${indx}-${country.name}-${country?.code}`} >{country?.name}</div>)
-      }
+  const handleCountryClick = (countryParam: CountryDTO) => {
+    setCountryProp(countryParam?.code);
+    setIsModuleOpen((prev) => !prev);
+  };
+
+  return (
+    <div className="countries-container">
+      <button className="select-country" onClick={handleClick}>
+        {countryProp}
+      </button>
+      <div className={`country-list-container ${isModuleOpen ? "scale" : ""}`}>
+        {COUNTRIES.map((country: CountryDTO, indx: number) => (
+          <div
+            onClick={() => handleCountryClick(country)}
+            className="country-list-item"
+            key={`${indx}-${country.name}-${country?.code}`}
+          >
+            {country?.name}
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-}
+  );
+};

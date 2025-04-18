@@ -95,7 +95,7 @@ export const Homepage = () => {
           ))}
         </select>
 
-        <Countries setCountryProp={setCountry} />
+        <Countries countryProp={country} setCountryProp={setCountry} />
         <SearchNews setSearchKeywordProp={setSearchKeyword} />
       </div>
         <Categories setCategoryProp={setCategory} />
