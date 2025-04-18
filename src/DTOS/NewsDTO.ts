@@ -1,9 +1,10 @@
 export interface NewsDataQueryParamDTO {
   language: string;
+  size: string | number;
   removeduplicate:number;
   country: string;
+  category: string;
   page?: string;
-  size?: string | number;
   q?: string;
 }
 

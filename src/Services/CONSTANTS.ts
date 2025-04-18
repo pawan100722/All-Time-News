@@ -121,3 +121,23 @@ export const COUNTRIES = [
   { name: "World", code: "wo" }
 ];
 
+
+export const CATEGORIES = [
+  "business",
+  "crime",
+  "domestic",
+  "education",
+  "entertainment",
+  "environment",
+  "food",
+  "health",
+  "lifestyle",
+  "other",
+  "politics",
+  "science",
+  "sports",
+  "technology",
+  "top",
+  "tourism",
+  "world",
+];

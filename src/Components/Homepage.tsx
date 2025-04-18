@@ -9,13 +9,16 @@ import defaultNewsImage from '../Images/news_card,jpg.jpg';
 import { NewsDataQueryParamDTO, NewsDTO, NewsResponseDTO } from "../DTOS/NewsDTO";
 import { SearchNews } from "./SearchNews.tsx";
 import { Countries } from "./Countries.tsx";
+import { Categories } from "./Categories.tsx";
 
 export const Homepage = () => {
+  const [country, setCountry]= useState<string>('in');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [category, setCategory]= useState<string>('world');
   const [newsData, setNewsData] = useState<NewsDTO[]>([])
   const [nextPageToken, setNextPageToken] = useState<string>("");
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
-  const [country, setCountry]= useState<string>('in');
 
   /**
    * sets data for slider data when component mounts
@@ -28,12 +31,12 @@ export const Homepage = () => {
 
 
   /**
-   * fetches the data when language, search keyword, country is changed
+   * fetches the data when language, search keyword, country, category is changed
    */
   useEffect(()=>{
     fetchData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[selectedLanguage,searchKeyword, country])
+  },[selectedLanguage,searchKeyword, country, category])
 
 
   const fetchData = async () => {
@@ -42,6 +45,8 @@ export const Homepage = () => {
         language: selectedLanguage,
         removeduplicate : 1,
         country,
+        category,
+        size: '10'
       };
       
       if (nextPageToken) {
@@ -50,7 +55,6 @@ export const Homepage = () => {
       if(searchKeyword){
         params['q']=searchKeyword;
       }
-      params["size"] = 10;
 
       const result: NewsResponseDTO = await getLatestNews(params);
       increaseAPICallCount();
@@ -74,12 +78,26 @@ export const Homepage = () => {
   return (
     <div className="homepage-container">
       <div className="homepage-input-container">
-        <select name="languages" className="language-select" onChange={handleLanguageChange}>{
-          LANGUAGES.map((lang,index)=><option className="language-option" key={`${index}-${lang?.code}-${lang.code}`} selected={selectedLanguage===lang?.code} value={lang.code}>{lang?.name}</option>)
-          }</select>
+        <select
+          name="languages"
+          className="language-select"
+          onChange={handleLanguageChange}
+        >
+          {LANGUAGES.map((lang, index) => (
+            <option
+              className="language-option"
+              key={`${index}-${lang?.code}-${lang.code}`}
+              selected={selectedLanguage === lang?.code}
+              value={lang.code}
+            >
+              {lang?.name}
+            </option>
+          ))}
+        </select>
 
-      <SearchNews setSearchKeywordProp={setSearchKeyword}/>
-      <Countries setCountryProp={setCountry}/>
+        <SearchNews setSearchKeywordProp={setSearchKeyword} />
+        <Countries setCountryProp={setCountry} />
+        <Categories setCategoryProp={setCategory} />
       </div>
       <NewsSlider newsDataProp={newsData} />
       <div className="news-cards-container">

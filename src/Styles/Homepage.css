@@ -36,7 +36,8 @@
 
 .homepage-input-container{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  align-items: baseline;
   flex-wrap: wrap;
   margin: 10px;
 }
