@@ -1,5 +1,6 @@
 import { ToastContainer } from "react-toastify";
-import { Homepage } from "./Homepage"
+import '../Styles/MainComponent.css';
+import { Homepage } from "./Homepage";
 
 export const MainComponent=()=>{
 

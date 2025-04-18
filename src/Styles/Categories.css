@@ -1,9 +1,9 @@
 .categories-container{
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   gap: 15px;
   background-color: rgb(223, 207, 183,0.8);
-  margin: 10px;
   padding:10px;
 }
 

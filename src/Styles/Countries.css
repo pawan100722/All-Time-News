@@ -2,8 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  position: relative;
+  width: 10%;
 }
 
 .select-country{

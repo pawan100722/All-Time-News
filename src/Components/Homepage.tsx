@@ -95,10 +95,10 @@ export const Homepage = () => {
           ))}
         </select>
 
-        <SearchNews setSearchKeywordProp={setSearchKeyword} />
         <Countries setCountryProp={setCountry} />
-        <Categories setCategoryProp={setCategory} />
+        <SearchNews setSearchKeywordProp={setSearchKeyword} />
       </div>
+        <Categories setCategoryProp={setCategory} />
       <NewsSlider newsDataProp={newsData} />
       <div className="news-cards-container">
         {newsData?.map((news: NewsDTO) => {
