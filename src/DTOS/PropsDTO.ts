@@ -1,12 +1,13 @@
 import { NewsDTO } from "./NewsDTO";
+import { CountryDTO } from "./OtherDTO";
 
 export interface SearchNewsPropDTO {
   setSearchKeywordProp: (val: string) => void;
 }
 
 export interface CountriesPropDTO {
-  countryProp: string;
-  setCountryProp: (val: string) => void;
+  countryProp: CountryDTO;
+  setCountryProp: (val: CountryDTO) => void;
 }
 
 export interface CategoriesProp {

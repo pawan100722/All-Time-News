@@ -12,14 +12,14 @@ export const Countries = ({ countryProp,setCountryProp }: CountriesPropDTO) => {
   };
 
   const handleCountryClick = (countryParam: CountryDTO) => {
-    setCountryProp(countryParam?.code);
+    setCountryProp(countryParam);
     setIsModuleOpen((prev) => !prev);
   };
 
   return (
     <div className="countries-container">
       <button className="select-country" onClick={handleClick}>
-        {countryProp}
+        {countryProp?.name}
       </button>
       <div className={`country-list-container ${isModuleOpen ? "scale" : ""}`}>
         {COUNTRIES.map((country: CountryDTO, indx: number) => (

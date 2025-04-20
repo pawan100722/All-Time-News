@@ -7,12 +7,13 @@ import { Countries } from "./Countries.tsx";
 import { Categories } from "./Categories.tsx";
 import { SearchNews } from "./SearchNews.tsx";
 import { Language } from "./LanguageSelect.tsx";
+import { CountryDTO } from "../DTOS/OtherDTO.ts";
 import { increaseAPICallCount } from "./MainComponent";
 import { getLatestNews } from "../Services/api.services";
 import { NewsDataQueryParamDTO, NewsDTO, NewsResponseDTO } from "../DTOS/NewsDTO";
 
 export const Homepage = () => {
-  const [country, setCountry]= useState<string>('in');
+  const [country, setCountry] = useState<CountryDTO>({ name: "India", code: "in" });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [newsData, setNewsData] = useState<NewsDTO[]>([])
   const [category, setCategory]= useState<string>('world');
@@ -44,7 +45,7 @@ export const Homepage = () => {
       const params: NewsDataQueryParamDTO = {
         language: selectedLanguage,
         removeduplicate : 1,
-        country,
+        country:country?.code,
         category,
         size: '10'
       };
