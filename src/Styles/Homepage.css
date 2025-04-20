@@ -37,17 +37,19 @@
 .homepage-input-container{
   margin: 5px;
   display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
-  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-evenly;
   height: 40px;
 }
 
 
 .language-select{
+  height: 100%;
+  width: auto;
   border-radius: 5px;
   background-color: #ece9e9;
   color:#4b4b89;
-  padding: 10px;
+  padding: 5px;
 }
 

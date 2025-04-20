@@ -79,19 +79,18 @@ export const Homepage = () => {
   return (
     <div className="homepage-container">
       <div className="homepage-input-container">
-        <Language
-          props={{
-            selectedLanguageProp: selectedLanguage,
-            handleLanguageSelectedProp:handleLanguageChange,
-          }}
-        />
-        <Countries countryProp={country} setCountryProp={setCountry} />
-        <SearchNews setSearchKeywordProp={setSearchKeyword} />
+          <Language
+            props={{
+              selectedLanguageProp: selectedLanguage,
+              handleLanguageSelectedProp: handleLanguageChange,
+            }}
+          />
+          <Countries countryProp={country} setCountryProp={setCountry} />
+          <SearchNews setSearchKeywordProp={setSearchKeyword} />
       </div>
       <Categories setCategoryProp={setCategory} />
       <NewsSlider newsDataProp={newsData} />
-      <NewsCards props={{newsData}}/>
-      
+      <NewsCards props={{ newsData }} />
     </div>
   );
 };
