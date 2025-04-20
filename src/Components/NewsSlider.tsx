@@ -63,7 +63,7 @@ export const NewsSlider = ({ newsDataProp }: NewsDataPropDTO) => {
     <div className="news-slider-container">
       {newsDataProp?.map((news: NewsDTO) => {
         return (
-          <React.Fragment key={news?.id}>
+          <React.Fragment key={`${news?.id}-${Math.random()}-${news.link}`}>
             <a
               href={news?.link}
               key={news?.id}
