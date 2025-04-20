@@ -53,3 +53,28 @@
   padding: 5px;
 }
 
+.next-container{
+  padding :10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.next-button{
+  width: 400px;
+  height: 50px;
+  cursor: pointer;
+  background-color: rgb(53, 53, 111);
+  color: white;
+  border-radius: 15px;
+  transition: transform 0.4s ease,background-color 0.4s ease;
+  font-size: 1.5rem;
+}
+
+.next-button:hover{
+  outline: 2px solid rgb(165, 36, 36);
+  transform: scale(1.1);
+  background-color: white;
+  color: rgb(165, 36, 36);
+}
+

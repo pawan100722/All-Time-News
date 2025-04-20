@@ -76,6 +76,10 @@ export const Homepage = () => {
      setSelectedLanguage(eventParam?.target?.value);
   }
 
+  const handleNextClick=async ()=>{
+await fetchData();
+  };
+
   return (
     <div className="homepage-container">
       <div className="homepage-input-container">
@@ -91,6 +95,10 @@ export const Homepage = () => {
       <Categories setCategoryProp={setCategory} />
       <NewsSlider newsDataProp={newsData} />
       <NewsCards props={{ newsData }} />
+
+      <div className="next-container">
+        <button className="next-button" onClick={handleNextClick}>Next</button>
+      </div>
     </div>
   );
 };
