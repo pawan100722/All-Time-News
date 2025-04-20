@@ -27,7 +27,7 @@ export const NewsSlider = ({ newsDataProp }: NewsDataPropDTO) => {
     let intervalId = NaN;
     if(!sliderButtonClicked){intervalId =setInterval(() => {
       next();
-    }, 2000);
+    }, 3000);
     setSliderIntervalId(intervalId);}
     return () => clearInterval(intervalId);
   }, [currentIndex]);

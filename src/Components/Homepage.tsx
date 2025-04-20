@@ -11,6 +11,7 @@ import { CountryDTO } from "../DTOS/OtherDTO.ts";
 import { increaseAPICallCount } from "./MainComponent";
 import { getLatestNews } from "../Services/api.services";
 import { NewsDataQueryParamDTO, NewsDTO, NewsResponseDTO } from "../DTOS/NewsDTO";
+import { DataNotFound } from "./DataNotFound.tsx";
 
 export const Homepage = () => {
   const [country, setCountry] = useState<CountryDTO>({ name: "India", code: "in" });
@@ -81,8 +82,9 @@ await fetchData();
   };
 
   return (
-    <div className="homepage-container">
-      <div className="homepage-input-container">
+    (<div className="homepage-container">
+      {
+        newsData.length?(<><div className="homepage-input-container">
           <Language
             props={{
               selectedLanguageProp: selectedLanguage,
@@ -98,8 +100,9 @@ await fetchData();
 
       <div className="next-container">
         <button className="next-button" onClick={handleNextClick}>Next</button>
-      </div>
-    </div>
+      </div></>):<DataNotFound/>
+      }
+    </div>)
   );
 };
 

@@ -1,14 +1,10 @@
 .countries-container{
-  /* display: flex;
-  flex-direction: column; */
-  /* align-items: center; */
-  /* width: 50%; */
   width: 200px;
   height: 40px;
 }
 
 .select-country{
-  width: auto;
+  width: 100%;
   padding: 11px;
   background-color:rgb(237, 233, 233);
   border-radius: 10px;

@@ -1,0 +1,17 @@
+.data-not-found-container{
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: aliceblue;
+}
+
+.data-not-found-icon{
+  width: 5rem;
+}
+
+.data-not-found-text{
+  font-size: 3rem;
+  font-style: italic;
+}
