@@ -1,21 +1,21 @@
 import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
 import '../Styles/Homepage.css';
 import { NewsSlider } from "./NewsSlider";
-import {LANGUAGES} from '../Services/CONSTANTS.ts';
-import { increaseAPICallCount } from "./MainComponent";
-import { getLatestNews } from "../Services/api.services";
-import defaultNewsImage from '../Images/news_card,jpg.jpg';
-import { NewsDataQueryParamDTO, NewsDTO, NewsResponseDTO } from "../DTOS/NewsDTO";
-import { SearchNews } from "./SearchNews.tsx";
+import { useEffect, useState } from "react";
+import { NewsCards } from "./NewsCards.tsx";
 import { Countries } from "./Countries.tsx";
 import { Categories } from "./Categories.tsx";
+import { SearchNews } from "./SearchNews.tsx";
+import { Language } from "./LanguageSelect.tsx";
+import { increaseAPICallCount } from "./MainComponent";
+import { getLatestNews } from "../Services/api.services";
+import { NewsDataQueryParamDTO, NewsDTO, NewsResponseDTO } from "../DTOS/NewsDTO";
 
 export const Homepage = () => {
   const [country, setCountry]= useState<string>('in');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [category, setCategory]= useState<string>('world');
   const [newsData, setNewsData] = useState<NewsDTO[]>([])
+  const [category, setCategory]= useState<string>('world');
   const [nextPageToken, setNextPageToken] = useState<string>("");
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
@@ -71,60 +71,26 @@ export const Homepage = () => {
   };
 
 
-  const handleLanguageChange=(eventParam: React.ChangeEvent<HTMLSelectElement>)=>{
+  const handleLanguageChange=(eventParam: React.ChangeEvent<HTMLSelectElement>)=>{    
      setSelectedLanguage(eventParam?.target?.value);
   }
 
   return (
     <div className="homepage-container">
       <div className="homepage-input-container">
-        <select
-          name="languages"
-          className="language-select"
-          onChange={handleLanguageChange}
-        >
-          {LANGUAGES.map((lang, index) => (
-            <option
-              className="language-option"
-              key={`${index}-${lang?.code}-${lang.code}`}
-              selected={selectedLanguage === lang?.code}
-              value={lang.code}
-            >
-              {lang?.name}
-            </option>
-          ))}
-        </select>
-
+        <Language
+          props={{
+            selectedLanguageProp: selectedLanguage,
+            handleLanguageSelectedProp:handleLanguageChange,
+          }}
+        />
         <Countries countryProp={country} setCountryProp={setCountry} />
         <SearchNews setSearchKeywordProp={setSearchKeyword} />
       </div>
-        <Categories setCategoryProp={setCategory} />
+      <Categories setCategoryProp={setCategory} />
       <NewsSlider newsDataProp={newsData} />
-      <div className="news-cards-container">
-        {newsData?.map((news: NewsDTO) => {
-          return (
-            <a
-              href={news?.link}
-              key={news?.id}
-              className="each-news-card-container"
-              target="_blank"
-            >
-              <img
-                key={`${news?.id}-${news?.image_url}`}
-                src={news?.image_url || defaultNewsImage}
-                alt={`News Image-${news.id}`}
-                className="news-card-image"
-              />
-              <h1
-                key={`${news?.id}-${news?.title}`}
-                className="news-card-title"
-              >
-                {news?.title}
-              </h1>
-            </a>
-          );
-        })}
-      </div>
+      <NewsCards props={{newsData}}/>
+      
     </div>
   );
 };

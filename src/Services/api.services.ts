@@ -11,8 +11,6 @@ export const getLatestNews= async(queryParams: NewsDataQueryParamDTO)=>{
       ...queryParams
     }
     const result = await axios.get(url,{params});
-    console.log(result);
-    
     return result?.data;
   }
   catch(err){

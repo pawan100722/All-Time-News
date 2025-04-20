@@ -4,6 +4,7 @@ import defaultNewsImage from "../Images/news_card,jpg.jpg";
 import "../Styles/HomepageSlider.css";
 import { LeftArrow } from "../Icons/LeftArrow";
 import { RightArrow } from "../Icons/RightArrow";
+import React from "react";
 
 export const NewsSlider = ({ newsDataProp }: NewsDataPropDTO) => {
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
@@ -62,7 +63,7 @@ export const NewsSlider = ({ newsDataProp }: NewsDataPropDTO) => {
     <div className="news-slider-container">
       {newsDataProp?.map((news: NewsDTO) => {
         return (
-          <>
+          <React.Fragment key={news?.id}>
             <a
               href={news?.link}
               key={news?.id}
@@ -83,7 +84,7 @@ export const NewsSlider = ({ newsDataProp }: NewsDataPropDTO) => {
                 {news?.title}
               </h1>
             </a>
-          </>
+          </React.Fragment>
         );
       })}
       <div className="slider-icon-container">
