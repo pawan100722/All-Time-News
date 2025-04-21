@@ -15,17 +15,18 @@ import { DataNotFound } from "./DataNotFound.tsx";
 
 export const Homepage = () => {
   const [country, setCountry] = useState<CountryDTO>({ name: "India", code: "in" });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [newsData, setNewsData] = useState<NewsDTO[]>([])
   const [category, setCategory]= useState<string>('world');
   const [nextPageToken, setNextPageToken] = useState<string>("");
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
 
+
   /**
    * sets data for slider data when component mounts
    */
   useEffect(() => {
+    console.log('fetching data on component mounting');
     fetchData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -35,10 +36,10 @@ export const Homepage = () => {
   /**
    * fetches the data when language, search keyword, country, category is changed
    */
-  useEffect(()=>{
+  useEffect(() => {
+    console.log("fetching data on changes");
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[selectedLanguage,searchKeyword, country, category])
+  }, [selectedLanguage, searchKeyword, country, category]);
 
 
   const fetchData = async () => {
@@ -59,6 +60,7 @@ export const Homepage = () => {
       }
 
       const result: NewsResponseDTO = await getLatestNews(params);
+      
       increaseAPICallCount();
       setNewsData(result?.results);
       if (result?.nextPage) {
@@ -67,8 +69,7 @@ export const Homepage = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.log("Error while fetching data in homepage.tsx");
-      toast.error(err?.message || err?.response?.message || 'Error while fetching data in homepage')
-      throw err;
+      toast.error(err?.message +'  '+ err?.response?.statusText || 'Error while fetching data in homepage')
     }
   };
 

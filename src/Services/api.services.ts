@@ -15,6 +15,6 @@ export const getLatestNews= async(queryParams: NewsDataQueryParamDTO)=>{
   }
   catch(err){
     console.log("error in api service getLatestNews():",err);
-    
+    throw err;
   }
 }

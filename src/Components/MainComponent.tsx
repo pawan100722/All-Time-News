@@ -1,11 +1,12 @@
-import { ToastContainer } from "react-toastify";
+import { useEffect } from 'react';
 import '../Styles/MainComponent.css';
 import { Homepage } from "./Homepage";
 
 export const MainComponent=()=>{
+  useEffect(()=>{
+  },[])
 
   return <div className="main-component-container">
-    <ToastContainer/>
   <Homepage/>
   </div>
 }
