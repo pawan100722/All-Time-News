@@ -4,11 +4,12 @@
   padding: 2px;
   border-radius: 10px;
   display: flex;
+  align-items: center;
   gap:5px;
 }
 
 .search-input{
-  width: 100%;
+  width: 90%;
   font-size: 1rem;
   border:none;
   outline: none;
