@@ -15,6 +15,7 @@
 
 .country-list-container{
   top: 45px;
+  right:0;
   background-color: rgb(223, 207, 183);
   position: absolute;
   z-index: 10;
@@ -27,7 +28,7 @@
   border-radius: 10px;
   transform: scale(0);
   transition: transform 0.5s ease;
-  transform-origin: top left;
+  transform-origin: top center;
 }
 
 .scale{
