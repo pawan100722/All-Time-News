@@ -31,6 +31,7 @@ export const Homepage = () => {
     code: "in",
   });
   const [timerId, setTimerId] = useState<number>(NaN);
+  const [hasMoreData, setHasMoreData] = useState<boolean>(true)
 
   /**
    * sets data for slider data when component mounts
@@ -86,6 +87,7 @@ export const Homepage = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       clearTimeout(timerId);
+      setHasMoreData(false);
       console.log("Error while fetching data in homepage.tsx");
       console.error(err)
       toast.error(
@@ -129,7 +131,7 @@ export const Homepage = () => {
             <InfiniteScroll
               dataLength={newsData.length}
               next={() => fetchData(true)}
-              hasMore={true}
+              hasMore={hasMoreData}
               loader={<Loader />}
               scrollableTarget="infiniteScroll"
             >
